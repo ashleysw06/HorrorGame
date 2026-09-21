@@ -4,6 +4,9 @@ using TMPro;
 public class InteractionHandler : MonoBehaviour {
     public TMP_Text prompt;
 
+    public bool canInteract = true;
+    public float interactionRange = 1.0f;
+
     IInteractable focusedObject;
     IInteractable lastFocusedObject;
 
@@ -14,12 +17,14 @@ public class InteractionHandler : MonoBehaviour {
     }
 
     void Update() {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, Mathf.Infinity, layerMask)) {
+        if (!canInteract) return;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, interactionRange, layerMask)) {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             IInteractable interactable = hit.collider.GetComponent<IInteractable>();
             focusedObject = interactable;
         } else {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * interactionRange, Color.white);
             focusedObject = null;
         }
 
