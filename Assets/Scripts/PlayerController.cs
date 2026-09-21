@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	void Update () {
-        moveSpeed = walkSpeed * 
-            Mathf.Max( 1.0f, Input.GetAxis("Sprint")) * sprintSpeed - 
-            Mathf.Max( 1.0f, Input.GetAxis("Crouch")) * sneakSpeed;
+        moveSpeed = walkSpeed;
+        if (Input.GetAxis("Sprint") == 1) moveSpeed = walkSpeed * sprintSpeed;
+        if (Input.GetAxis("Crouch") == 1) moveSpeed = walkSpeed * sneakSpeed;
 
         moveDir.z = Input.GetAxis("Vertical");
         moveDir.x = Input.GetAxis("Horizontal");
