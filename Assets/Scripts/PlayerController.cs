@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
     public float walkSpeed = 10.0f;
@@ -15,10 +15,9 @@ public class PlayerController : MonoBehaviour {
     public float moveVelocity = 0.0f;
 
     Rigidbody rb;
-    CharacterController cc;
 
     void Start() {
-        cc = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 	}
 	
